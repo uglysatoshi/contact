@@ -138,12 +138,75 @@ def delete_selling(db_item_id):
     return redirect(url_for('seller'))
 
 
-@app.route("/manager", methods=["POST", "GET"])
+@app.route("/manager", methods=["GET"])
 def manager():
     if "email" in session:
         operator = db.operators.find_one({'email': session['email']})
         if operator["manager"]:
-            return render_template('manager.html', operator=operator)
+            clients = []
+            total_balance = 0
+            total_purchases = 0
+            for client in db.clients.find():
+                client["_id"] = str(client["_id"])
+                client["balance"] = round(client["balance"], 3)
+                total_balance += client["balance"]
+                total_purchases += client["purchases"]
+                clients.append(client)
+            total_balance = round(total_balance, 3)
+            return render_template('manager.html',
+                                   clients=clients,
+                                   totalBalance=total_balance,
+                                   totalPurchases=total_purchases)
+        else:
+            return render_template('zero_access.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/manager/balance_descending", methods=["GET"])
+def manager_balance_descending():
+    if "email" in session:
+        operator = db.operators.find_one({'email': session['email']})
+        if operator["manager"]:
+            clients = []
+            total_balance = 0
+            total_purchases = 0
+            for client in db.clients.find().sort("balance", 1):
+                client["_id"] = str(client["_id"])
+                client["balance"] = round(client["balance"], 3)
+                total_balance += client["balance"]
+                total_purchases += client["purchases"]
+                clients.append(client)
+            total_balance = round(total_balance, 3)
+            return render_template('manager.html',
+                                   clients=clients,
+                                   totalBalance=total_balance,
+                                   totalPurchases=total_purchases)
+        else:
+            return render_template('zero_access.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/manager/balance_ascending", methods=["GET"])
+def manager_balance_ascending():
+    if "email" in session:
+        operator = db.operators.find_one({'email': session['email']})
+        if operator["manager"]:
+            clients = []
+            total_balance = 0
+            total_purchases = 0
+            for client in db.clients.find().sort("balance", -1):
+                client["_id"] = str(client["_id"])
+                client["balance"] = round(client["balance"], 3)
+                total_balance += client["balance"]
+                total_purchases += client["purchases"]
+                clients.append(client)
+            total_balance = round(total_balance, 3)
+            return render_template('manager.html',
+                                   clients=clients,
+                                   totalBalance=total_balance,
+                                   totalPurchases=total_purchases)
         else:
             return render_template('zero_access.html')
     else:

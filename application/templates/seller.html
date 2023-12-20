@@ -15,7 +15,7 @@
                 <p> {{ sell.status }}</p>
                 <p class="description-small"> Оператор </p>
                 <p> {{ sell.firstname_seller }} {{ sell.lastname_seller }} </p>
-                <p> {{ sell.date_created }} </p>
+                <p class="description-small"> {{ sell.date_created }} </p>
             </div>
             <div class="sell-operations">
                 <a href="{{ url_for('delete_selling', db_item_id = sell._id) }}" class="delete">

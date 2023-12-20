@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Seller{% endblock %}
+{% block title %}Клиенты{% endblock %}
 
 {% block content %}
+    <div class="statistics-bar">
+            <div class="statistic-item">
+                <p class="description-small"> Общий баланс клиентов</p>
+                <p> {{ totalBalance }} ₽</p>
+            </div>
+            <div class="statistic-item">
+                <p class="description-small"> Общее число покупок</p>
+                <p> {{ totalPurchases }} </p>
+            </div>
+    </div>
+        <div class="sorting-bar">
+            <p> Сортировать </p>
+            <div class="sorting-items">
+                <a href="{{ url_for('manager_balance_descending') }}" class="sort">
+                    <img src="{{ url_for('static',filename='images/sort-up.svg')}}" class="icon" id="sort-icon" alt="">
+                </a>
+                <a href="{{ url_for('manager_balance_ascending') }}" class="sort">
+                    <img src="{{ url_for('static',filename='images/sort-down.svg')}}" class="icon" id="sort-icon" alt="">
+                </a>
+                <a href="{{ url_for('manager') }}" class="sort">
+                    <img src="{{ url_for('static',filename='images/none-sort.svg')}}" class="icon" id="sort-icon" alt="">
+                </a>
+            </div>
+        </div>
+        {% for client in clients %}
+            <div class="client-main">
+                <p class="description-small"> Имя </p>
+                <p> {{ client.firstname }} {{ client.lastname }} </p>
+                <p class="description-small"> Количество покупок </p>
+                <p> {{ client.purchases }} </p>
+                <p class="description-small"> Баланс </p>
+                <p> {{ client.balance }} ₽</p>
+            </div>
+        {% endfor %}
 {% endblock %}
