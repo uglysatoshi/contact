@@ -7,7 +7,7 @@
     <form action="" method="POST">
         {{ form.csrf_token() }}
         <div class="form-add-selling">
-            <p>Add new selling</p>
+            <p>Добавить продажу</p>
             <div class="form-group">
                 {% if form.item.errors %}
                     {{ form.item(class="form-control is-invalid") }}
@@ -17,7 +17,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    {{ form.item(class="input-form", placeholder="Name of item") }}
+                    {{ form.item(class="input-form", placeholder="Название предмета") }}
                 {% endif %}
             </div>
             <div class="form-group">
@@ -29,7 +29,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    {{ form.status(class="input-form", placeholder="Status of sale") }}
+                    {{ form.status(class="select-form", placeholder="Статус продажи") }}
                 {% endif %}
             </div>
 

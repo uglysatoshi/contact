@@ -87,13 +87,23 @@ body {
 
 .input-form {
     background-color: whitesmoke;
-    width: 80%;
+    width: 300px;
     height: 50px;
-    border-radius: 30px;
+    border-radius: 10px;;
     margin: 10px;
     font-size: 15pt;
-    color: black;
     padding: 20px;
+    border-color: #043C6B;
+}
+
+.select-form {
+    background-color: whitesmoke;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 15pt;
     border-color: #043C6B;
 }
 
@@ -113,7 +123,7 @@ body {
     background-color: #beb8b8;
     width: 300px;
     height: 60px;
-    border-radius: 30px;
+    border-radius: 10px;
     margin: 10px;
     font-size: 15pt;
     color: black;
@@ -172,12 +182,18 @@ body {
 }
 
 .profile-description {
-    width: 70%;
+    width: 300px;
     margin: 10px;
     background-color: #9a9999;
     border-radius: 30px;
     padding: 20px;
     font-size: 20pt;
+}
+
+.description-small {
+    color: black;
+    font-size: 10pt;
+
 }
 
 .navbar-item {
@@ -239,15 +255,19 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 20px 50px;
+    font-size: 20pt;
+    background-color: #7e7d7d;
+    margin: 10px;
+    border-radius: 20px;
 }
 
 .sell-operations {
     width: 20%;
     padding: 10px;
-    height: auto;
+    height: 200px;
     display: flex;
-    flex-direction: column;
-
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .form-add-selling {
@@ -264,7 +284,7 @@ body {
 }
 
 #submit-selling {
-    width: 250px;
+    width: 220px;
     height: 50px;
     border-radius: 10px;
 }
@@ -303,6 +323,7 @@ body {
     border-radius: 30px;
     transition: 0.3s ease 0s;
     border: solid whitesmoke;
+    margin-bottom: 80px;
 }
 
 .delete:hover {
@@ -314,4 +335,27 @@ body {
 #delete-icon {
     width: 50px;
     height: 50px;
+}
+
+#edit-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.edit {
+    display: flex;
+    height: 50%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #83d58e;
+    border-radius: 30px;
+    transition: 0.3s ease 0s;
+    border: solid whitesmoke;
+}
+
+.edit:hover {
+    transition: 0.3s ease 0s;
+    background-color: #60b66b;
+    border-radius: 15px;
 }

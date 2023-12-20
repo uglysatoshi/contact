@@ -96,6 +96,40 @@ def add_selling():
         return redirect(url_for('login'))
 
 
+@app.route('/edit/<db_item_id>', methods=["POST", "GET"])
+def edit_selling(db_item_id):
+    if "email" in session:
+        operator = db.operators.find_one({'email': session['email']})
+        if operator["seller"]:
+            if request.method == "POST":
+                delete_selling(db_item_id)
+                form = SellingForm(request.form)
+                sell_name = form.item.data
+                sell_status = form.status.data
+                seller_firstname = operator["firstname"]
+                seller_lastname = operator["lastname"]
+                sell_date = datetime.now().strftime("%d.%b.%Y %H:%M:%S")
+                db.sellings.insert_one({
+                    "item": sell_name,
+                    "date_created": sell_date,
+                    "firstname_seller": seller_firstname,
+                    "lastname_seller": seller_lastname,
+                    "status": sell_status
+                })
+                flash("Продажа успешно отредактирована", "success")
+                return redirect(url_for('seller'))
+            else:
+                form = SellingForm()
+                item = db.sellings.find_one_or_404({"_id": ObjectId(db_item_id)})
+                form.item.data = item.get("item", None)
+                form.status.data = item.get("status", None)
+                return render_template("add_selling.html", form=form)
+        else:
+            return render_template('zero_access.html')
+    else:
+        return redirect(url_for('login'))
+
+
 @app.route("/delete/<db_item_id>")
 def delete_selling(db_item_id):
     # calling a db and deleting item by _id
@@ -112,13 +146,5 @@ def manager():
             return render_template('manager.html', operator=operator)
         else:
             return render_template('zero_access.html')
-    else:
-        return redirect(url_for('login'))
-
-
-@app.route("/help", methods=["POST", "GET"])
-def helper():
-    if "email" in session:
-        return render_template('help.html')
     else:
         return redirect(url_for('login'))

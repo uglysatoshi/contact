@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Профиль{% endblock %}
 
 {% block content %}
     <div class="profile-main">
@@ -8,9 +8,11 @@
             <img class="icon" id="profile-icon" src="{{ url_for('static',filename='images/profile.svg') }}" alt="">
         </div>
         <div class="profile-description">
-            <p>Name: {{ operator.firstname }} {{ operator.lastname }}</p>
-            <p>Title: {{ operator.title }}</p>
+            <p class="description-small">Имя</p>
+            <p>{{ operator.firstname }} {{ operator.lastname }}</p>
+            <p class="description-small">Должность </p>
+            <p>{{ operator.title }}</p>
         </div>
-        <button class="btn" id="exit">Exit</button>
+        <button class="btn" id="exit">Выйти из профиля</button>
     </div>
 {% endblock %}

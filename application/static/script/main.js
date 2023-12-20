@@ -15,7 +15,3 @@ if(window.location.pathname === "/seller") {
 if(window.location.pathname === "/manager") {
     document.getElementById("manager").style.borderBottomColor = "#39a63c";
 }
-
-if(window.location.pathname === "/help") {
-    document.getElementById("help").style.borderBottomColor = "#39a63c";
-}
