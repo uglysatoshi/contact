@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Seller{% endblock %}
+
+{% block content %}
+    <button class="new-sell" id="new">
+        <img class="icon" id="add-new-icon" src="{{ url_for('static',filename='images/add-circle.svg') }}" alt="">
+    </button>
+    {% for sell in sells %}
+        <div class="sell">
+            <div class="sell-info">
+                <p> Item: {{ sell.item }}</p>
+                <p> Status: {{ sell.status }}</p>
+                <p> Operator: {{ sell.firstname_seller }} {{ sell.lastname_seller }} </p>
+                <p> {{ sell.date_created }} </p>
+            </div>
+            <div class="sell-operations">
+                <a href="{{ url_for('delete_selling', db_item_id = sell._id) }}" class="delete">
+                    <img src="{{ url_for('static',filename='images/trash-bin.svg')}}" class="icon" id="delete-icon" alt="">
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

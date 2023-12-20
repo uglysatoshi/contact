@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" type="image/b-icon" href="{{ url_for('static',filename='images/profile.svg') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="subheader">
+                <div class="navbar-item" id="profile">
+                    <a href="/profile">
+                        <img class="icon" id="home-icon" src="{{ url_for('static',filename='images/home.svg') }}" alt="">
+                    </a>
+                </div>
+                <nav class="navbar">
+                    <div class="navbar-item" id="seller">
+                        <a href="/seller" > Seller </a>
+                    </div>
+                    <div class="navbar-item" id="manager">
+                        <a href="/manager" > Manager </a>
+                    </div>
+                    <div class="navbar-item" id="help">
+                        <a href="/help"> Help </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="main">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+<script src="{{ url_for('static',filename='script/main.js') }}"></script>
+</body>
+
+</html>

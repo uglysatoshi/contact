@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <div class="profile-main">
+        <div class="pfp">
+            <img class="icon" id="profile-icon" src="{{ url_for('static',filename='images/profile.svg') }}" alt="">
+        </div>
+        <div class="profile-description">
+            <p>Name: {{ operator.firstname }} {{ operator.lastname }}</p>
+            <p>Title: {{ operator.title }}</p>
+        </div>
+        <button class="btn" id="exit">Exit</button>
+    </div>
+{% endblock %}
