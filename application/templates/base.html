@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.12.5/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -33,7 +34,21 @@
             {% block content %} {% endblock %}
         </div>
     </div>
-<script src="{{ url_for('static',filename='script/main.js') }}"></script>
+    <script src="{{ url_for('static',filename='script/main.js') }}"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <script>
+                    Swal.fire({
+                        title: "{{ category.title() }}",
+                        text: "{{ message }}",
+                        icon: "{{ category }}",
+                        closeOnConfirm: false
+                    })
+                </script>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 
 </html>

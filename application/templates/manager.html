@@ -29,12 +29,13 @@
         </div>
         {% for client in clients %}
             <div class="client-main">
-                <p class="description-small"> Имя </p>
-                <p> {{ client.firstname }} {{ client.lastname }} </p>
-                <p class="description-small"> Количество покупок </p>
-                <p> {{ client.purchases }} </p>
-                <p class="description-small"> Баланс </p>
-                <p> {{ client.balance }} ₽</p>
+                <details>
+                    <summary> {{ client.firstname }} {{ client.lastname }} </summary>
+                        <p class="description-small"> Количество покупок </p>
+                        <p> {{ client.purchases }} </p>
+                        <p class="description-small"> Баланс </p>
+                        <p> {{ client.balance }} ₽</p>
+                </details>
             </div>
         {% endfor %}
 {% endblock %}

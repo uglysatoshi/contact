@@ -60,6 +60,7 @@ body {
 }
 
 .main {
+    user-select: none;
     width: 800px;
     height: auto;
     background: #043C6B;
@@ -364,9 +365,9 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 70%;
-    height: 150px;
+    height: 100px;
     margin: 10px;
-    background-color: #0f88ee;
+    background-color: #66A3D2;
     border-radius: 20px;
     font-size: 20pt;
     padding: 20px 50px;
@@ -382,7 +383,7 @@ body {
     width: 70%;
     height: auto;
     font-size: 20pt;
-    padding: 20px 50px;
+    padding: 20px;
     color: whitesmoke;
     background-color: #3F8FD2;
     display: flex;
@@ -399,7 +400,7 @@ body {
     height: auto;
     font-size: 20pt;
     color: whitesmoke;
-    background-color: #0f88ee;
+    background-color: #66A3D2;
     padding: 20px;
     margin: 10px;
     border-radius: 20px;
@@ -428,8 +429,8 @@ body {
     border: solid whitesmoke;
 }
 
-.edit:hover {
+.sort:hover {
     transition: 0.3s ease 0s;
-    background-color: #60b66b;
+    background-color: #1F4565FF;
     border-radius: 15px;
 }

@@ -7,7 +7,6 @@ from bson import ObjectId
 
 @app.route('/', methods=['POST', 'GET'])
 def login():
-    message = 'Please login to your account'
     if "email" in session:
         return redirect(url_for("profile"))
 
@@ -25,12 +24,12 @@ def login():
             else:
                 if "email" in session:
                     return redirect(url_for("profile"))
-                message = 'Wrong password'
-                return render_template('login.html', message=message)
+                flash("Неверный пароль или электронная почта", "Ошибка")
+                return render_template('login.html')
         else:
-            message = 'Email not found'
-            return render_template('login.html', message=message)
-    return render_template('login.html', message=message)
+            flash("Неверный пароль или электронная почта", "Ошибка")
+            return render_template('login.html')
+    return render_template('login.html')
 
 
 @app.route('/profile', methods=['GET'])
@@ -39,6 +38,7 @@ def profile():
         operator = db.operators.find_one({'email': session['email']})
         return render_template('profile.html', operator=operator)
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect('/')
 
 
@@ -46,8 +46,10 @@ def profile():
 def logout():
     if "email" in session:
         session.pop("email", None)
+        flash("Выход из профиля совершен успешно", "Успех")
         return redirect(url_for('login'))
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return render_template('login.html')
 
 
@@ -64,6 +66,7 @@ def seller():
         else:
             return render_template('zero_access.html')
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect(url_for('login'))
 
 
@@ -78,7 +81,7 @@ def add_selling():
                 sell_status = form.status.data
                 seller_firstname = operator["firstname"]
                 seller_lastname = operator["lastname"]
-                sell_date = datetime.now().strftime("%d.%b.%Y %H:%M:%S")
+                sell_date = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 db.sellings.insert_one({
                     "item": sell_name,
                     "date_created": sell_date,
@@ -86,6 +89,7 @@ def add_selling():
                     "lastname_seller": seller_lastname,
                     "status": sell_status
                 })
+                flash("Продажа успешно добавлена", "Успех")
                 return redirect(url_for('seller'))
             else:
                 form = SellingForm()
@@ -108,7 +112,7 @@ def edit_selling(db_item_id):
                 sell_status = form.status.data
                 seller_firstname = operator["firstname"]
                 seller_lastname = operator["lastname"]
-                sell_date = datetime.now().strftime("%d.%b.%Y %H:%M:%S")
+                sell_date = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 db.sellings.insert_one({
                     "item": sell_name,
                     "date_created": sell_date,
@@ -116,7 +120,7 @@ def edit_selling(db_item_id):
                     "lastname_seller": seller_lastname,
                     "status": sell_status
                 })
-                flash("Продажа успешно отредактирована", "success")
+                flash("Продажа успешно отредактирована", "Успех")
                 return redirect(url_for('seller'))
             else:
                 form = SellingForm()
@@ -127,6 +131,7 @@ def edit_selling(db_item_id):
         else:
             return render_template('zero_access.html')
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect(url_for('login'))
 
 
@@ -134,7 +139,7 @@ def edit_selling(db_item_id):
 def delete_selling(db_item_id):
     # calling a db and deleting item by _id
     db.sellings.find_one_and_delete({"_id": ObjectId(db_item_id)})
-    flash("Selling is been deleted")
+    flash("Продажа успешно удалена", "Успех")
     return redirect(url_for('seller'))
 
 
@@ -149,7 +154,8 @@ def manager():
             for client in db.clients.find():
                 client["_id"] = str(client["_id"])
                 client["balance"] = round(client["balance"], 3)
-                total_balance += client["balance"]
+                if client["balance"] > 0:
+                    total_balance += client["balance"]
                 total_purchases += client["purchases"]
                 clients.append(client)
             total_balance = round(total_balance, 3)
@@ -160,6 +166,7 @@ def manager():
         else:
             return render_template('zero_access.html')
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect(url_for('login'))
 
 
@@ -178,6 +185,7 @@ def manager_balance_descending():
                 total_purchases += client["purchases"]
                 clients.append(client)
             total_balance = round(total_balance, 3)
+            flash("Клиенты отсортированы по возрастанию баланса", "Успех")
             return render_template('manager.html',
                                    clients=clients,
                                    totalBalance=total_balance,
@@ -185,6 +193,7 @@ def manager_balance_descending():
         else:
             return render_template('zero_access.html')
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect(url_for('login'))
 
 
@@ -203,6 +212,7 @@ def manager_balance_ascending():
                 total_purchases += client["purchases"]
                 clients.append(client)
             total_balance = round(total_balance, 3)
+            flash("Клиенты отсортированы по убыванию баланса", "Успех")
             return render_template('manager.html',
                                    clients=clients,
                                    totalBalance=total_balance,
@@ -210,4 +220,5 @@ def manager_balance_ascending():
         else:
             return render_template('zero_access.html')
     else:
+        flash("Необходимо войти в учетную запись", "Ошибка")
         return redirect(url_for('login'))
