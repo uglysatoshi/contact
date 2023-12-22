@@ -33,6 +33,7 @@ _clients_
 }
 ```
 
+Сборка проекта:
 ```cmd
     git clone https://github.com/uglysatoshi/contact
     cd contact
